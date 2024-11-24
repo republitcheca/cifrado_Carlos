@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado César</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Cifrado César</h1>
+            <form method="post" action="procesar.php">
+                <div class="input-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <input type="text" id="mensaje" name="mensaje" required aria-label="Ingrese el mensaje a cifrar o descifrar">
+                </div>
+                <div class="input-group">
+                    <label for="clave">Clave (desplazamiento):</label>
+                    <input type="number" id="clave" name="clave" min="1" required aria-label="Ingrese el número de desplazamiento para el cifrado">
+                </div>
+                <div class="radio-group">
+                    <label>Tipo de operación:</label>
+                    <input type="radio" id="encriptar" name="tipo" value="Encriptar" required>
+                    <label for="encriptar">Encriptar</label>
+                    <input type="radio" id="desencriptar" name="tipo" value="Desencriptar">
+                    <label for="desencriptar">Desencriptar</label>
+                </div>
+                <input type="submit" value="Procesar">
+            </form>
+        </div>
+
+        <div class="integrantes-container">
+            <h3>Integrantes</h3>
+            <ul>
+                <li>Traecy Salomé Quiroz Mio</li>
+                <li>Wilder Santos Santos</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
