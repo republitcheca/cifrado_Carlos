@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado César Mejorado</title>
+    <style>
+        /* General */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Contenedor Principal */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        /* Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            margin-right: 5px;
+        }
+
+        form button {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #003d80;
+        }
+
+        /* Resultado */
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f4ea;
+            color: #2c6f2c;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Sección de Integrantes */
+        .integrantes {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .integrantes h3 {
+            font-size: 20px;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .integrantes ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .integrantes li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cifrado César Mejorado</h1>
+
+    <div class="container">
+        <form id="cifradoForm">
+            <div>
+                <label for="mensaje">Mensaje:</label>
+                <input type="text" id="mensaje" name="mensaje" placeholder="Introduce el mensaje" required>
+            </div>
+            <div>
+                <label for="clave">Clave (desplazamiento):</label>
+                <input type="number" id="clave" name="clave" placeholder="Introduce la clave" required>
+            </div>
+            <div class="radio-group">
+                <label>Tipo de operación:</label>
+                <input type="radio" id="encriptar" name="tipo" value="Encriptar" required>
+                <label for="encriptar">Encriptar</label>
+                <input type="radio" id="desencriptar" name="tipo" value="Desencriptar">
+                <label for="desencriptar">Desencriptar</label>
+            </div>
+            <button type="submit">Procesar</button>
+        </form>
+        <div class="result" id="resultado" style="display: none;"></div>
+    </div>
+
+    <div class="integrantes">
+        <h3>Integrantes</h3>
+        <ul>
+            <li>Traecy Salomé Quiroz Mio</li>
+            <li>Wilder Santos Santos</li>
+        </ul>
+    </div>
+
+    <script>
+        function cifradoCesar(mensaje, clave, tipo) {
+            const alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            let resultado = "";
+            mensaje = mensaje.toUpperCase();
+
+            for (let letra of mensaje) {
+                if (alfabeto.includes(letra)) {
+                    const posicion = alfabeto.indexOf(letra);
+                    const desplazamiento = tipo === "Encriptar"
+                        ? (posicion + clave) % alfabeto.length
+                        : (posicion - clave + alfabeto.length) % alfabeto.length;
+                    resultado += alfabeto[desplazamiento];
+                } else {
+                    resultado += letra;
+                }
+            }
+            return resultado;
+        }
+
+        document.getElementById("cifradoForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const mensaje = document.getElementById("mensaje").value;
+            const clave = parseInt(document.getElementById("clave").value);
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+            const resultado = cifradoCesar(mensaje, clave, tipo);
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.textContent = "Resultado: " + resultado;
+            resultadoDiv.style.display = "block";
+        });
+    </script>
+</body>
+</html>
